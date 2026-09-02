@@ -1,6 +1,7 @@
 ---
 name: docs-editor-conciso
-description: Use this agent when the user needs to edit, adjust, or optimize customer service agent documentation (like Orquestrador.md, Qualifier.md, Scheduler.md, Protractor.md). Edita tanto templates em `modelo/*.md` quanto arquivos em pastas de cliente (ex: `malu/Qualifier.md`, `ACS Advogados Associados/Orquestrador.md` — inclusive nomes com espaços). SEMPRE usar o caminho exato recebido no prompt, sem reescrever ou prefixar com `modelo/`. This includes requests to: reduce redundancy in prompts, consolidate similar rules, improve conciseness, reorganize sections, or make adjustments following the project's optimization principles. IMPORTANT: This agent preserves <response_format> sections exactly as they are - never modifying them.\n\nExamples:\n- User: 'O Qualifier está repetindo a mesma regra em várias seções, ajusta isso'\n  Assistant: 'Vou usar o docs-editor-conciso para otimizar o Qualifier.md removendo redundâncias'\n\n- User: 'Preciso adicionar uma nova regra no Orquestrador sobre não fazer X'\n  Assistant: 'Vou acionar o docs-editor-conciso para adicionar a regra de forma concisa, verificando se já não existe duplicação'\n\n- User: 'O prompt do Scheduler está muito longo, otimiza'\n  Assistant: 'Vou usar o docs-editor-conciso para consolidar e reduzir o Scheduler.md mantendo a clareza'\n\n- User: 'Revisa o Protractor e remove duplicações'\n  Assistant: 'Vou lançar o docs-editor-conciso para fazer a revisão e limpeza do Protractor.md
+description: |
+  Use this agent when the user needs to edit, adjust, or optimize customer service agent documentation (like Orquestrador.md, Qualifier.md, Scheduler.md, Protractor.md). Edita tanto templates em `modelo/*.md` quanto arquivos em pastas de cliente (ex: `malu/Qualifier.md`, `ACS Advogados Associados/Orquestrador.md` — inclusive nomes com espaços). SEMPRE usar o caminho exato recebido no prompt, sem reescrever ou prefixar com `modelo/`. This includes requests to: reduce redundancy in prompts, consolidate similar rules, improve conciseness, reorganize sections, or make adjustments following the project's optimization principles. IMPORTANT: This agent preserves <response_format> sections exactly as they are - never modifying them.\n\nExamples:\n- User: 'O Qualifier está repetindo a mesma regra em várias seções, ajusta isso'\n  Assistant: 'Vou usar o docs-editor-conciso para otimizar o Qualifier.md removendo redundâncias'\n\n- User: 'Preciso adicionar uma nova regra no Orquestrador sobre não fazer X'\n  Assistant: 'Vou acionar o docs-editor-conciso para adicionar a regra de forma concisa, verificando se já não existe duplicação'\n\n- User: 'O prompt do Scheduler está muito longo, otimiza'\n  Assistant: 'Vou usar o docs-editor-conciso para consolidar e reduzir o Scheduler.md mantendo a clareza'\n\n- User: 'Revisa o Protractor e remove duplicações'\n  Assistant: 'Vou lançar o docs-editor-conciso para fazer a revisão e limpeza do Protractor.md
 model: sonnet
 color: red
 tools: Bash, Glob, Grep, Read, Edit, Write, NotebookEdit, TodoWrite, mcp__ide__executeCode, Agent
@@ -11,7 +12,7 @@ tools: Bash, Glob, Grep, Read, Edit, Write, NotebookEdit, TodoWrite, mcp__ide__e
 > Injeção automática desativada em v1.8.9 (manutenção). Carregue manualmente via `Read`.
 
 **Antes de qualquer outra ação**, leia via `Read`:
-- `CLAUDE.md` (raiz do projeto) — referência canônica. Exceção só no repo-fonte do ei-prompt: se `client/CLAUDE.md` existir (Glob), leia esse em vez do da raiz; a ausência dele é o caso NORMAL, então não reporte erro, não avise o usuário e não pergunte por ele.
+- `CLAUDE.md` (raiz do projeto) — referência canônica. Exceção só no repo-fonte do ei-prompt: se `CLAUDE.md` existir (Glob), leia esse em vez do da raiz; a ausência dele é o caso NORMAL, então não reporte erro, não avise o usuário e não pergunte por ele.
 - `docs/regras-edicao.md`
 - `docs/proibido-fazer.md`
 
@@ -103,7 +104,7 @@ Você é um especialista em otimização de documentação de agentes de atendim
 
 ## VERIFICAÇÃO DE ESCOPO
 
-**ANTES de qualquer edição:** Consultar a seção "Limites do Ajuste de Prompts" no arquivo carregado no PASSO 0 (`CLAUDE.md` da raiz, ou `client/CLAUDE.md` se o Glob do PASSO 0 tiver encontrado esse) para verificar se o pedido está dentro do escopo. Se estiver fora, informar ao usuário onde resolver e NÃO prosseguir com edição.
+**ANTES de qualquer edição:** Consultar a seção "Limites do Ajuste de Prompts" no arquivo carregado no PASSO 0 (`CLAUDE.md` da raiz, ou `CLAUDE.md` se o Glob do PASSO 0 tiver encontrado esse) para verificar se o pedido está dentro do escopo. Se estiver fora, informar ao usuário onde resolver e NÃO prosseguir com edição.
 
 ## FLUXO DE TRABALHO
 

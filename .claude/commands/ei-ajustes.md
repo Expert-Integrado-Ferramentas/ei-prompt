@@ -262,7 +262,7 @@ NUNCA invocar o `docs-editor-conciso` (Passo 5) sem aprovação EXPLÍCITA via `
 > Injeção automática desativada em v1.8.9 (manutenção). Carregue manualmente.
 
 Leia via Read (se ainda não leu nesta sessão):
-- `CLAUDE.md` (raiz do projeto) — referência canônica. Exceção só no repo-fonte do ei-prompt: se `client/CLAUDE.md` existir (Glob), leia esse em vez do da raiz; a ausência dele é o caso NORMAL, então não reporte erro, não avise o usuário e não pergunte por ele.
+- `CLAUDE.md` (raiz do projeto) — referência canônica. Exceção só no repo-fonte do ei-prompt: se `CLAUDE.md` existir (Glob), leia esse em vez do da raiz; a ausência dele é o caso NORMAL, então não reporte erro, não avise o usuário e não pergunte por ele.
 - `docs/regras-edicao.md`, `docs/regras-validacao.md`, `docs/proibido-fazer.md`
 
 ### Passo 5: Despachar `docs-editor-conciso` em paralelo (fan-out)
