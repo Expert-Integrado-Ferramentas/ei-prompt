@@ -1,5 +1,14 @@
 # Changelog
 
+## [2.3.1] - 2026-09-02
+
+**Corrige um caminho residual errado e um risco de parsing no YAML de 3 subagentes.**
+
+- **A exceção do repo-fonte apontava para um caminho que nunca existiu.** A correção da v2.2.1 trocou a precedência para `CLAUDE.md` primeiro, mas a frase da exceção ficou citando `client/CLAUDE.md` — um caminho que não existe neste repositório (aqui a exceção é o próprio `CLAUDE.md` da raiz do repo-fonte, sem prefixo). Agora as 9 ocorrências, nos 6 agentes e nos 2 comandos que carregam esse contexto, citam o caminho correto.
+- **`.claude/agents/client-scaffold-collect.md`, `.claude/agents/client-scaffold-fill.md`, `.claude/agents/client-scaffold-structure.md`, `.claude/agents/docs-analyzer.md`, `.claude/agents/docs-editor-conciso.md`, `.claude/agents/docs-reviewer.md`, `.claude/agents/recepcionista-scaffolder.md`, `.claude/commands/ei-ajustes.md`, `.claude/commands/ei-cria-cliente.md`**: `client/CLAUDE.md` → `CLAUDE.md` na frase de exceção do Passo/Fase 0.
+- **`.claude/agents/docs-editor-conciso.md`, `.claude/agents/docs-reviewer.md`, `.claude/agents/recepcionista-scaffolder.md`**: o campo `description` do frontmatter, que é texto longo com `\n` escapados, passa a usar bloco literal YAML (`description: |`) para evitar ambiguidade de parsing.
+- **`package.json`**: version `2.3.0` → `2.3.1`.
+
 ## [2.3.0] - 2026-08-12
 
 **O `/ei-ajustes` não deixa mais passar um arquivo de cliente sem a seção de formato de resposta.**
