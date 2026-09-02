@@ -1,6 +1,7 @@
 ---
 name: recepcionista-scaffolder
-description: Use this agent SOMENTE quando criar um cliente em modo multi-agente, para criar a pasta `Recepcionista/` (router). Cria `Orquestrador.md` (a partir de `modelo/Recepcionista.md`), stubs neutralizados de `Qualifier.md` e `Scheduler.md`, e `Protractor.md` com `TRANSFERIR_PARA_AGENT` ATIVO. Preenche `<agentes_disponiveis>` com as especialidades recebidas. NÃO cria as pastas das especialidades — isso é do `client-scaffold-structure`. Disparado pelo comando `/ei-cria-cliente` em dois cenários: (a) **fluxo completo** — chamado DEPOIS que `/ei-cria-cliente` já rodou o ciclo `client-scaffold-structure` → `client-scaffold-collect` → `client-scaffold-fill` para todas as especialidades, recebendo a lista delas; (b) **bypass** — chamado sozinho quando as especialidades já existem em outro lugar e o usuário fornece nome/descrição/gatilhos manualmente.
+description: |
+  Use this agent SOMENTE quando criar um cliente em modo multi-agente, para criar a pasta `Recepcionista/` (router). Cria `Orquestrador.md` (a partir de `modelo/Recepcionista.md`), stubs neutralizados de `Qualifier.md` e `Scheduler.md`, e `Protractor.md` com `TRANSFERIR_PARA_AGENT` ATIVO. Preenche `<agentes_disponiveis>` com as especialidades recebidas. NÃO cria as pastas das especialidades — isso é do `client-scaffold-structure`. Disparado pelo comando `/ei-cria-cliente` em dois cenários: (a) **fluxo completo** — chamado DEPOIS que `/ei-cria-cliente` já rodou o ciclo `client-scaffold-structure` → `client-scaffold-collect` → `client-scaffold-fill` para todas as especialidades, recebendo a lista delas; (b) **bypass** — chamado sozinho quando as especialidades já existem em outro lugar e o usuário fornece nome/descrição/gatilhos manualmente.
 tools: Bash, Glob, Grep, Read, Edit, Write, TodoWrite
 model: opus
 color: cyan
@@ -37,7 +38,7 @@ Se faltar qualquer dado obrigatório (nome, lista de especialidades, empresa), *
 ## FLUXO OBRIGATÓRIO
 
 ### Fase 0: Carregar Contexto
-1. Leia `CLAUDE.md` (raiz do projeto) via Read — internalize a seção "Arquitetura Multi-Agente (opcional — Recepcionista)". Exceção só no repo-fonte do ei-prompt: se `client/CLAUDE.md` existir (Glob), leia esse em vez do da raiz; a ausência dele é o caso NORMAL, então não reporte erro, não avise o usuário e não pergunte por ele.
+1. Leia `CLAUDE.md` (raiz do projeto) via Read — internalize a seção "Arquitetura Multi-Agente (opcional — Recepcionista)". Exceção só no repo-fonte do ei-prompt: se `CLAUDE.md` existir (Glob), leia esse em vez do da raiz; a ausência dele é o caso NORMAL, então não reporte erro, não avise o usuário e não pergunte por ele.
 2. Leia `modelo/Recepcionista.md` integralmente.
 3. Leia `modelo/Protractor.md` integralmente — atenção aos marcadores `////` (linhas 48-50 e 88) que delimitam o bloco `TRANSFERIR_PARA_AGENT`.
 
