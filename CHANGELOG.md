@@ -1,5 +1,13 @@
 # Changelog
 
+## [2.3.2] - 2026-09-24
+
+**O Scheduler não pede mais uma janela estreita ao Get Agendamento e some com os horários alternativos.**
+
+- **Antes, o agente reaproveitava o `time_max` do Validador na consulta de agenda.** O Validador devolve uma janela apertada em volta do horário pontual pedido (ex.: `17:00 - 17:30`), porque a função dele é só dizer se aquele horário serve. A regra mandava usar `time_min` **e** `time_max` retornados também no Get Agendamento — então a consulta de agenda olhava apenas aqueles 30 minutos e o agente ficava sem alternativas para propor quando o slot estava ocupado. Agora a regra separa os dois usos: o `time_min` do Validador continua sendo obrigatório como base, mas o `time_max` do Get Agendamento é uma janela ampliada de vários dias — fim do expediente do 7º dia após o `timeMin`, conforme `weekly_availability`.
+- **`modelo/Scheduler.md`**: a "REGRA CRÍTICA DE USO DO RETORNO DO VALIDADOR" passa a explicitar que o `time_max` estreito vale só para a chamada ao Validador; o passo 4 do contrato ganha a regra da janela ampliada com exemplo (`timeMin = "2026-09-24T16:00:00Z"` → `timeMax = "2026-09-30T20:00:00Z"`); o fallback do passo 6 passa a citar a mesma regra em vez de "os valores retornados pelo Validador".
+- **`package.json`**: version `2.3.1` → `2.3.2`.
+
 ## [2.3.1] - 2026-09-02
 
 **Corrige um caminho residual errado e um risco de parsing no YAML de 3 subagentes.**

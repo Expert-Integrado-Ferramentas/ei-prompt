@@ -225,20 +225,21 @@ Regras do contrato:
   
   2) **REGRA CRÍTICA DE USO DO RETORNO DO VALIDADOR:**
      - O Validador retorna `time_min` e `time_max` **ajustados** (podem ser diferentes do input original).
-     - O agente **DEVE usar os valores retornados pelo Validador** (`time_min` e `time_max` do response), **NÃO os valores originais enviados**.
+     - O agente **DEVE usar o `time_min` retornado pelo Validador** como base, **NUNCA os valores originais enviados**.
+     - O `time_max` estreito do Validador vale **somente para a chamada ao Validador** — no Get Agendamento (passo 4) o `time_max` é **ampliado**.
      - Exemplo:
-       • Enviado: `timeMin = 09:30`, `timeMax = 17:30`
+       • Enviado ao Validador: `timeMin = 09:30`, `timeMax = 17:30`
        • Validador retornou: `time_min = 17:00`, `time_max = 17:30`
-       • **USAR:** `17:00 - 17:30` para o Get Agendamento (NÃO `09:30 - 17:30`)
+       • **Get Agendamento usa:** `timeMin = 17:00` (do Validador) + `timeMax` ampliado conforme passo 4
   
   3) Verificar o campo `isAvailable` do Validador:
      - Se `isAvailable = false` → **NÃO chamar Get Agendamento**. Seguir para fallback (passo 6).
      - Se `isAvailable = true` → continuar para passo 4.
   
   4) Se `isAvailable = true`, **chamar obrigatoriamente o Get Agendamento()** usando:
-     - `timeMin` = valor de `time_min` **retornado pelo Validador** (anexar "Z")
-     - `timeMax` = valor de `time_max` **retornado pelo Validador** (anexar "Z")
-     - **PROIBIDO usar os valores originais do input.**
+     - `timeMin` = valor de `time_min` **retornado pelo Validador** (anexar "Z") — **PROIBIDO usar o valor original do input.**
+     - `timeMax` = **janela ampliada de vários dias**: fim do expediente do **7º dia após o `timeMin`**, conforme `weekly_availability`, anexar "Z" — **NÃO** usar o `time_max` estreito retornado pelo Validador nesta chamada (esse serve só para validar o horário pontual).
+     - Exemplo: `timeMin = "2026-09-24T16:00:00Z"` → `timeMax = "2026-09-30T20:00:00Z"`.
   
   5) Se o Get Agendamento confirmar livre → `status = "ok"` e `next_action = "confirm_booking"`, com `proposed_slots` contendo o slot validado.
   
@@ -249,7 +250,7 @@ Regras do contrato:
        • Se `data_passada` ou `aviso_minimo_nao_respeitado` → o Validador já ajustou; usar o range ajustado ou próximo dia.
      - Gerar novo par `timeMin` e `timeMax` para o **próximo dia útil** conforme `weekly_availability`.
      - Reenviar ao **Validador de Horário**.
-     - Somente após `isAvailable = true`, chamar **Get Agendamento** com os valores **retornados pelo Validador**.
+     - Somente após `isAvailable = true`, chamar **Get Agendamento** com `timeMin` do Validador e `timeMax` ampliado, conforme o passo 4 acima.
      - Propor **até 3 horários disponíveis** válidos.
      - Responder com `"status":"need_choice"` e `"next_action":"await_pick"`.
 
