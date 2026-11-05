@@ -1,0 +1,19 @@
+{
+  "versao": "0.5.1",
+  "instaladoEm": "2026-11-05",
+  "repositorioDaMetodologia": "Expert-Integrado-Ferramentas/expert-governanca",
+  "testes": {
+    "comando": "npm test"
+  },
+  "mapeamento": {
+    "organizadoEm": "2026-11-05"
+  },
+  "instalacao": {
+    "origem": "cli",
+    "pendente": [
+      "settings",
+      "linha-de-base",
+      "prova-das-travas"
+    ]
+  }
+}
