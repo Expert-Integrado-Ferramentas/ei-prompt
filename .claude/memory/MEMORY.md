@@ -1,0 +1,3 @@
+- [settings-json-e-distribuido](settings-json-e-distribuido.md): `.claude/settings.json` é entregue aos clientes e sobrescrito pelo CLI
+- [client-claude-md-e-produto](client-claude-md-e-produto.md): `client/CLAUDE.md` é o `CLAUDE.md` do cliente, não o contexto desta sessão
+- [merge-na-main-publica](merge-na-main-publica.md): todo push na `main` roda `npm publish`; sem bump o workflow falha

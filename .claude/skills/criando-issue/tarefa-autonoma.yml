@@ -1,0 +1,90 @@
+# Modelo de issue para projeto com a pipeline autônoma (claude-harness). Copie para .github/ISSUE_TEMPLATE/tarefa-autonoma.yml.
+# Mesmos campos do tarefa.yml. O título [harness] <slug> e a label harness:ready põem a issue na fila: a pipeline
+# implementa e mescla sozinha. Login, permissão, segredo, pagamento e reforma grande: use o tarefa.yml e a label
+# harness:local (entrega local com gate humano), não este.
+name: Tarefa para a pipeline autônoma
+description: Tarefa pronta para a pipeline autônoma do claude-harness (issue → plano → PR)
+title: "[harness] "
+labels: ["harness:ready"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Escreva para quem for resolver não precisar perguntar nada. Sem senha, dado pessoal ou nome de cliente.
+        Uma issue é uma coisa só: se dá para mesclar em dois pedaços separados, abra duas e ligue pela dependência.
+        Os títulos das seções são os mesmos do claude-harness: a pipeline autônoma lê a issue por eles.
+  - type: textarea
+    id: summary
+    attributes:
+      label: Resumo + por quê
+      description: O que é e por que importa (1 a 3 linhas).
+    validations:
+      required: true
+  - type: textarea
+    id: user_journeys
+    attributes:
+      label: User journeys
+      description: Quem se beneficia e como. Uma por linha, com `#uj-N:`.
+      placeholder: "#uj-1: a operadora consegue ..."
+    validations:
+      required: true
+  - type: textarea
+    id: acceptance_criteria
+    attributes:
+      label: Critérios de aceite (testáveis e observáveis)
+      description: "Dado X, quando Y, então Z, com valor concreto. Cada um vira um teste. Um por linha, com `#ac-N.M:` (N = a jornada)."
+      placeholder: "#ac-1.1: dado a API devolvendo companyId 3, quando rodar test_connection, então mostra (id 3)"
+    validations:
+      required: true
+  - type: textarea
+    id: scope
+    attributes:
+      label: Escopo
+      description: O que pode ser tocado e o que NÃO pode.
+      placeholder: "Pode: src/index.ts e testes. Não tocar: autenticação."
+    validations:
+      required: true
+  - type: textarea
+    id: resolved_decisions
+    attributes:
+      label: Decisões já resolvidas (opcional)
+      description: "chave: valor concreto, para quem implementa não inventar. Ex.: `status do redirecionamento: 301`."
+    validations:
+      required: false
+  - type: textarea
+    id: dependencies
+    attributes:
+      label: Dependências (roadmap encadeado — opcional)
+      description: >-
+        Issues que precisam estar MESCLADAS antes desta. Mantenha o bloco ` ```harness-deps ` e escreva um `#N` por linha.
+        Sem dependência, apague o bloco e escreva "Nenhuma.". Confira à mão que não há ciclo (#A → #B → #A) e que todo #N existe.
+        Ligue também cada par como "bloqueada por" no próprio GitHub (a skill criando-issue faz isso).
+      value: |
+        ```harness-deps
+        #
+        ```
+    validations:
+      required: false
+  - type: dropdown
+    id: sensitive
+    attributes:
+      label: Domínio sensível?
+      description: Diferente de "não" pede cuidado extra (e, na pipeline autônoma, revisão de segurança completa).
+      options: ["não", "auth/sessão", "pagamento/billing", "dados/PII", "segredos", "SQL/migração"]
+    validations:
+      required: true
+  - type: dropdown
+    id: priority
+    attributes:
+      label: Prioridade
+      options: ["P1", "P0", "P2"]
+    validations:
+      required: true
+  - type: dropdown
+    id: size
+    attributes:
+      label: Tamanho estimado
+      description: Prefira pequeno (até ~400 linhas). L só quando as partes não sobem separadas.
+      options: ["S", "M", "L"]
+    validations:
+      required: true
