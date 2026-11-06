@@ -36,6 +36,139 @@
           }
         ]
       }
+    ],
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"$CLAUDE_PROJECT_DIR/.claude/hooks/expert/guard-branch-protegida.mjs\"",
+            "timeout": 15
+          },
+          {
+            "type": "command",
+            "command": "node \"$CLAUDE_PROJECT_DIR/.claude/hooks/expert/guard-nome-de-branch.mjs\"",
+            "timeout": 15
+          },
+          {
+            "type": "command",
+            "command": "node \"$CLAUDE_PROJECT_DIR/.claude/hooks/expert/guard-mensagem-de-commit.mjs\"",
+            "timeout": 15
+          },
+          {
+            "type": "command",
+            "command": "node \"$CLAUDE_PROJECT_DIR/.claude/hooks/expert/guard-segredos.mjs\"",
+            "timeout": 15
+          },
+          {
+            "type": "command",
+            "command": "node \"$CLAUDE_PROJECT_DIR/.claude/hooks/expert/guard-leitura-de-segredos.mjs\"",
+            "timeout": 15
+          },
+          {
+            "type": "command",
+            "command": "node \"$CLAUDE_PROJECT_DIR/.claude/hooks/expert/guard-apagar-branches.mjs\"",
+            "timeout": 15
+          },
+          {
+            "type": "command",
+            "command": "node \"$CLAUDE_PROJECT_DIR/.claude/hooks/expert/guard-deploy.mjs\"",
+            "timeout": 15
+          },
+          {
+            "type": "command",
+            "command": "node \"$CLAUDE_PROJECT_DIR/.claude/hooks/expert/guard-testes-antes-do-push.mjs\"",
+            "timeout": 600
+          }
+        ]
+      },
+      {
+        "matcher": "Write|Edit|MultiEdit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"$CLAUDE_PROJECT_DIR/.claude/hooks/expert/guard-claude-md.mjs\"",
+            "timeout": 15
+          }
+        ]
+      },
+      {
+        "matcher": "mcp__.*(apply_migration|execute_sql|run_sql|d1_database_(query|delete)|deploy_edge_function|edge_function_(publish|delete|promote)|set_verify_jwt|update_from_query|insert_from_query|soft_delete|excluir_|remover_|drop_|alterar_|renomear_|converter_|reset_branch|merge_branch|pause_project|restore_project|(r2_bucket|kv_namespace|d1_database|workers?|hyperdrive|queue|branch|project|bucket|edge_function|storage|database)_delete|delete_(branch|project|bucket|database|worker|namespace)).*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"$CLAUDE_PROJECT_DIR/.claude/hooks/expert/guard-mcp-banco.mjs\"",
+            "timeout": 15
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"$CLAUDE_PROJECT_DIR/.claude/hooks/expert/registrar-deploy.mjs\"",
+            "timeout": 15
+          }
+        ]
+      }
+    ],
+    "SessionStart": [
+      {
+        "matcher": "startup|resume|clear",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"$CLAUDE_PROJECT_DIR/.claude/hooks/expert/inicio-de-sessao.mjs\"",
+            "timeout": 15
+          }
+        ]
+      }
+    ]
+  },
+  "$schema": "https://json.schemastore.org/claude-code-settings.json",
+  "attribution": {
+    "commit": "",
+    "pr": ""
+  },
+  "includeCoAuthoredBy": false,
+  "permissions": {
+    "deny": [
+      "Read(.env)",
+      "Read(.env.local)",
+      "Read(.env.production)",
+      "Read(.env.development)",
+      "Read(.env.staging)",
+      "Read(.env.test)",
+      "Read(.env.prod)",
+      "Read(.env.dev)",
+      "Read(.env.homolog)",
+      "Read(.env.hml)",
+      "Read(//**/.env)",
+      "Read(//**/.env.local)",
+      "Read(//**/.env.production)",
+      "Read(//**/.env.development)",
+      "Read(//**/.env.staging)",
+      "Read(//**/.env.test)",
+      "Read(//**/.env.prod)",
+      "Read(//**/.env.dev)",
+      "Read(//**/.env.homolog)",
+      "Read(//**/.env.hml)",
+      "Read(.env.*.local)",
+      "Read(//**/.env.*.local)",
+      "Read(.dev.vars)",
+      "Read(//**/.dev.vars)",
+      "Read(~/.ssh/**)",
+      "Read(~/.aws/**)",
+      "Bash(git reset --hard:*)",
+      "Bash(git clean -f*)",
+      "Bash(git push --force *)",
+      "Bash(git push * --force)",
+      "Bash(git push -f*)",
+      "Bash(git push * -f)"
     ]
   }
 }
