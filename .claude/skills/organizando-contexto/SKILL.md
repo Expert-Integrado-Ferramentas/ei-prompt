@@ -92,7 +92,8 @@ Escolha sempre o destino mais estreito que ainda cobre o conhecimento.
    - Na dúvida sobre um termo, pergunte à pessoa.
 
 7. **Memória do projeto.** `.claude/memory/MEMORY.md` com uma linha por arquivo:
-   `- [nome](nome.md): resumo em uma frase`. Cada arquivo:
+   `- [nome]` e, colado, o caminho entre parênteses `(nome.md)`, depois `: resumo em uma frase`
+   (um link markdown para o arquivo). Cada arquivo:
    ```markdown
    ---
    name: <nome curto>

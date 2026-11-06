@@ -1,5 +1,5 @@
 {
-  "versao": "0.5.1",
+  "versao": "0.6.1",
   "arquivos": {
     ".claude/hooks/expert/guard-apagar-branches.mjs": "e4e8c3e23f502dd92bc00d8cf8aaab55f26eda794c53c71f734921a27ca483f0",
     ".claude/hooks/expert/guard-branch-protegida.mjs": "bb66dc42784c722b24965774b59c8a5324add1e556336b24f737ef0983fde8bb",
@@ -11,7 +11,7 @@
     ".claude/hooks/expert/guard-nome-de-branch.mjs": "25aafac170b1d804e6848b707f92d4fe1dc301c47db44163b12ca679c39d7b69",
     ".claude/hooks/expert/guard-segredos.mjs": "57a2a633de7ca577bf501ea97ce767f85a442abc5f5eddf1c03af9b70c4104ea",
     ".claude/hooks/expert/guard-testes-antes-do-push.mjs": "f5e2d158fad886ae049cb40c56cdeb40aa330df4b6a8d5f2ac7b834fe0fccfcf",
-    ".claude/hooks/expert/inicio-de-sessao.mjs": "04be112a87ecd20f10d7b0d35e0578f600b89307f6e8d3d71f526adb989ce2b8",
+    ".claude/hooks/expert/inicio-de-sessao.mjs": "8ebc61c6c4cf850e5ae3d581c332c9742a86bfeb404fc18fa040bb3c0e317f62",
     ".claude/hooks/expert/lib/config.mjs": "76e35e58b7334b57b55ed062f2785c399c01411712ed117f031fcabc310ccd50",
     ".claude/hooks/expert/lib/deploy.mjs": "d2ffc831f3e30661ed42480c76d56ebdf3a2c011aa2f42bd74948bc9e6dddd2d",
     ".claude/hooks/expert/lib/git.mjs": "781493b89a83b810bab5f004f83b029e277837a5818f5f1ac296b5217ba1f6a2",
@@ -33,6 +33,7 @@
     ".claude/skills/abrindo-pr/SKILL.md": "f2e5c559defcc6c06c67471697b9ee356bc043f5e2f360aa63d41c109a79d024",
     ".claude/skills/colhendo-aprendizados/SKILL.md": "a098a34e0943cd4d4938b66e44e755a825735802c7f6ad34fc3a11dd17323532",
     ".claude/skills/commitando/SKILL.md": "befb9fe406ad514fb2826322d52edad0f29ece182cacac440f61523a2b527808",
+    ".claude/skills/configurando-ci/SKILL.md": "525b27f2ad0b5e4408b2a57b359b4ae4c07a0558dba3cce2c262e60c48a4563c",
     ".claude/skills/criando-issue/SKILL.md": "f8a450d85059ca8e0ca8e0e81adc8b52c07879b095ff697e05b5c9a40c2cdc92",
     ".claude/skills/criando-issue/tarefa-autonoma.yml": "79316d5299146abb90476d833464149257f64bebedf3ea33f71ddcc4751ceba0",
     ".claude/skills/criando-issue/tarefa.yml": "9a75e62d8d9ea9f6e06c2099ea31d4cc7599a1f10f07998146e399a1e52138e5",
@@ -42,7 +43,7 @@
     ".claude/skills/lancando-versao/SKILL.md": "9e84ccc89a0dbbf6718fa2eeb66f37d5bf486e38ed7291ec7379b458d2ac5b01",
     ".claude/skills/lancando-versao/formato.md": "9b2b9894f867d9585c2e5ba079c88c597390f7a0b88defdd134c1e6b85fcec57",
     ".claude/skills/organizando-contexto/AGENTS.base.md": "2a0363e9e1000732c9bb39683c50c153ed9efc7313a19fd5acaa8a45c36a6d95",
-    ".claude/skills/organizando-contexto/SKILL.md": "5b0dc00ece7ba57bdc92b5c92424e8b9924c826ee477ad1dc98b0a4c2820d6cd",
+    ".claude/skills/organizando-contexto/SKILL.md": "7b428c5ae1befe66ce1b02f66466085dd251e21c4d7d370c648d5947736a5590",
     ".claude/skills/preparando-vps/SKILL.md": "430d36b375b78452d3c54103f543f062d3181f38f4f15df17afecf599e34a104",
     ".claude/skills/publicando/SKILL.md": "bdb7a17d6065f53f0b3cc1d6595166037a6041e8d1678ce5400ab56f0726f75c"
   }

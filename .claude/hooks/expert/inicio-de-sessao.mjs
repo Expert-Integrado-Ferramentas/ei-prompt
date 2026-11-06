@@ -10,10 +10,11 @@
  *     .claude/memory/MEMORY.md, linha de base de testes; mapeamento velho (90 dias ou 50+ arquivos
  *     novos na branch atual desde a data `mapeamento.organizadoEm` — por data, não por commit, porque
  *     o squash merge apaga o commit da organização);
- *   - linha de base que já passa localmente mas segue "falhando" no arquivo versionado.
+ *   - linha de base que já passa localmente mas segue "falhando" no arquivo versionado;
+ *   - CI: em toda sessão, enquanto o projeto não tiver um workflow que rode no pull request.
  * Nunca bloqueia.
  */
-import { existsSync, readFileSync } from "node:fs";
+import { existsSync, readdirSync, readFileSync } from "node:fs";
 import path from "node:path";
 
 import { loadConfig, readStateJson, writeStateJson } from "./lib/config.mjs";
@@ -71,6 +72,28 @@ export function arquivosNovosDesde(root, data) {
 
 export function temTabelaDePastas(texto) {
   return /^\s*\|.*\bpastas?\b.*\|/im.test(texto) || /pasta\s*(→|->)/i.test(texto);
+}
+
+/**
+ * O projeto tem CI quando algum workflow de `.github/workflows` roda em `pull_request` e tem ao
+ * menos um passo `run:`. Conferência por texto, sem entender o YAML: basta para saber se existe.
+ */
+export function temCi(root) {
+  const dir = path.join(root, ".github", "workflows");
+  let nomes;
+  try {
+    nomes = readdirSync(dir).filter((n) => /\.ya?ml$/i.test(n));
+  } catch {
+    return false;
+  }
+  return nomes.some((n) => {
+    try {
+      const t = readFileSync(path.join(dir, n), "utf8");
+      return /\bpull_request/.test(t) && /^\s*-?\s*run\s*:/m.test(t);
+    } catch {
+      return false;
+    }
+  });
 }
 
 /**
@@ -151,6 +174,15 @@ export function avisos(cwd, opts = {}) {
   const local = readStateJson(root, "linha-de-base.json");
   if (local?.estado === "passando" && raw?.testes?.linhaDeBase?.estado === "falhando") {
     out.push("A suíte já passa: atualize testes.linhaDeBase.estado para 'passando' no .claude/expert-governanca.json no próximo commit.");
+  }
+
+  // 6. CI: avisa em toda sessão enquanto não existir
+  if (!temCi(root)) {
+    out.push(
+      raw?.testes?.comando
+        ? "Este projeto não tem CI: nenhum workflow roda os testes no pull request. Ofereça rodar a skill configurando-ci (ela propõe o workflow e a pessoa aprova antes de criar)."
+        : "Este projeto não tem CI nem comando de testes registrado. Ofereça rodar a skill configurando-ci: ela vê o que existe, propõe o mínimo que a stack permite e diz com clareza o que falta para ter testes, sem criar teste de fachada.",
+    );
   }
   return out;
 }
