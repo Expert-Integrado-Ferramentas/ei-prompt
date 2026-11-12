@@ -13,8 +13,8 @@ paths:
 # Testes de unidade e integração
 
 Carrega ao mexer em arquivo de teste. Stack padrão: **Vitest**, Testing Library para tela e
-`@cloudflare/vitest-pool-workers` para Worker (roda no ambiente real da Cloudflare). Edge function
-do Supabase (Deno): `deno test`.
+`@cloudflare/vitest-plugin` (antigo `@cloudflare/vitest-pool-workers`) para Worker (roda no
+ambiente real da Cloudflare). Edge function do Supabase (Deno): `deno test`.
 
 ## Convenções
 
@@ -43,7 +43,7 @@ do Supabase (Deno): `deno test`.
 ### Dados de teste
 - Dado inventado, nunca real (ver `security`).
 - Dado reutilizado vira fábrica: `buildStudent(overrides?: Partial<Student>)` em `test/fixtures/`.
-- No `vitest-pool-workers` não há sistema de arquivos: carregue fixture com
+- No `@cloudflare/vitest-plugin` não há sistema de arquivos: carregue fixture com
   `import payload from "./fixtures/payload.json?raw"` ou import de JSON, nunca `node:fs`.
 
 ## Exemplos
