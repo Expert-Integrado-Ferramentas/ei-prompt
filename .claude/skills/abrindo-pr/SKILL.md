@@ -1,6 +1,6 @@
 ---
 name: abrindo-pr
-description: Abre um pull request no padrão da Expert (título em Conventional Commits, corpo com Resumo, Como testar, Riscos e Closes #N), colhe os aprendizados da entrega e, com testes e checagens passando, faz o merge por squash sozinho e apaga a branch. Use quando a pessoa pedir "abre o PR", "entrega isso" ou "faz o merge".
+description: Abre um pull request no padrão da Expert (título em Conventional Commits, corpo com Resumo, Como testar, Riscos, Custo e tempo e Closes #N), colhe os aprendizados da entrega e, com testes e checagens passando, faz o merge por squash sozinho e apaga a branch. Use quando a pessoa pedir "abre o PR", "entrega isso" ou "faz o merge".
 ---
 
 # Abrindo o PR
@@ -34,8 +34,20 @@ description: Abre um pull request no padrão da Expert (título em Conventional 
      ## Riscos
      - <o que pode quebrar, migration, mudança de configuração ou segredo novo; "Nenhum conhecido" se for o caso>
 
+     <bloco "## Custo e tempo" impresso pelo medir-entrega, colado sem editar>
+
      Closes #N
      ```
+   - **Custo e tempo (obrigatório em todo PR):** rode `node .claude/hooks/expert/medir-entrega.mjs`
+     na branch e cole a saída inteira no corpo. Ele soma, dos registros locais do Claude Code,
+     as mensagens gravadas nesta branch (subagentes incluídos): tempo total e ativo, sessões,
+     tokens de entrada, saída e cache por modelo, e o custo equivalente pelo preço de tabela da API.
+     Na assinatura também se mede: o número serve para saber quanto custa e quanto demora cada
+     entrega. Não arredonde, não estime e não remova a seção. Saiu "Medição indisponível"
+     e o trabalho foi feito de uma sessão aberta em outra pasta? Rode com `--sessao "$CLAUDE_CODE_SESSION_ID"` (o id da sessão atual).
+     Em outra máquina ou na nuvem? Cole assim mesmo e diga em uma linha onde o trabalho foi
+     feito. A entrega começa na branch: crie a branch antes de começar, senão o trabalho feito
+     na `main` fica fora da conta.
    - O relatório de entrega (o que foi feito, como foi testado, o que ficou de fora) mora aqui, na descrição do PR. Nunca no `AGENTS.md` nem no `CLAUDE.md` do projeto: esses arquivos só guardam regra.
    - PR acima de ~400 linhas alteradas: justifique no Resumo ou proponha dividir.
    - Sem linha de atribuição ao Claude ("Generated with Claude Code" ou `Co-Authored-By`) no corpo.
@@ -49,10 +61,12 @@ description: Abre um pull request no padrão da Expert (título em Conventional 
    projeto, commite na mesma branch (`docs: registra aprendizados da entrega`) e envie. Se a
    colheita mudou algo que o texto do PR afirma (por exemplo, um arquivo que ela transformou ou
    removeu), atualize o corpo com `gh pr edit --body-file <arquivo-temporario>` antes de mesclar.
+   Rode de novo o `medir-entrega` e troque o bloco "Custo e tempo" pelo novo no mesmo
+   `gh pr edit`: o número final inclui a colheita.
 
 5. **Mesclar** (seção abaixo), sem esperar aprovação: ninguém revisa PR na Expert, o PR é o registro.
 
-6. **Relatório:** link do PR, se foi mesclado e, em uma linha, o que a colheita atualizou.
+6. **Relatório:** link do PR, se foi mesclado, custo equivalente e tempo ativo da entrega (do bloco "Custo e tempo") e, em uma linha, o que a colheita atualizou.
 
 ## Merge (automático quando está tudo certo)
 
@@ -80,3 +94,4 @@ pare. Corrigir e tentar de novo é com a pessoa ou no próximo pedido.
 - `gh pr merge --admin` ou qualquer forma de passar por cima de uma regra.
 - Mesclar com teste ou checagem falhando, ou com conflito.
 - Apagar branch sem provar o merge.
+- Abrir ou mesclar PR sem a seção "Custo e tempo", ou com número estimado em vez do medido.

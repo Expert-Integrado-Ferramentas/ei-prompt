@@ -22,6 +22,8 @@ o `AGENTS.md` da pasta em que vai mexer, se houver.
     histórico e diário de incidente vão na descrição do PR ou em `docs/`, nunca aqui.
 12. Não altere o próprio harness (`.claude/hooks/`, `.claude/settings.json`, `.claude/state/`)
     sem pedido explícito da pessoa; mudança no harness vem pela skill `instalando-harness`.
+13. Todo PR traz a seção "Custo e tempo" (tokens, custo equivalente na API e tempo de entrega),
+    medida por `node .claude/hooks/expert/medir-entrega.mjs`, mesmo na assinatura. Nunca estimada.
 
 ## Regras deste projeto
 

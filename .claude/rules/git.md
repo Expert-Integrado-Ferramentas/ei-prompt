@@ -38,7 +38,11 @@ bloquear, leia o motivo e faça do jeito certo. Nunca tente contornar.
 
 ### Pull Requests
 - Título no mesmo padrão do commit (`feat: ...`).
-- Corpo com: **Resumo**, **Como testar**, **Riscos** e `Closes #N`. A skill `abrindo-pr` faz isso.
+- Corpo com: **Resumo**, **Como testar**, **Riscos**, **Custo e tempo** e `Closes #N`. A skill `abrindo-pr` faz isso.
+- **Custo e tempo** em todo PR, mesmo na assinatura: a saída de
+  `node .claude/hooks/expert/medir-entrega.mjs` (tempo total e ativo, tokens por modelo e custo
+  equivalente na API), colada sem editar. Nunca estime: sem registro, cole o "Medição indisponível".
+  Crie a branch antes de começar o trabalho; o que foi feito na `main` fica fora da conta.
 - PR pequeno (até ~400 linhas alteradas). Maior que isso: justifique ou divida.
 - Merge por squash: `gh pr merge --squash --delete-branch`, feito pelo Claude logo depois de abrir o PR quando testes e checagens passam e não há conflito. Ninguém precisa aprovar: o PR é o registro.
 
